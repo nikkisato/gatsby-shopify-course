@@ -3,7 +3,7 @@ import CartContext from 'context/CartContext';
 import { FaTrashAlt } from 'react-icons/fa';
 import { Icon } from './styles';
 
-export default function RemoveLineItem({ lineItemId }) {
+export function RemoveLineItem({ lineItemId }) {
   const { removeLineItem } = React.useContext(CartContext);
 
   const handleClick = () => {

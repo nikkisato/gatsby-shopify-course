@@ -1,8 +1,13 @@
 /* eslint-disable jsx-a11y/no-onchange */
-
 import React from 'react';
 import { graphql } from 'gatsby';
-import { Layout, ImageGallery, ProductQuantityAdder, Button } from 'components';
+import {
+  Layout,
+  ImageGallery,
+  ProductQuantityAdder,
+  Button,
+  SEO,
+} from 'components';
 import { Grid, SelectWrapper, Price } from './styles';
 import CartContext from 'context/CartContext';
 import { navigate, useLocation } from '@reach/router';
@@ -38,7 +43,7 @@ export default function ProductTemplate(props) {
   ]);
 
   const handleVariantChange = e => {
-    const newVariant = product.variants.find(v => v.id === e.target.value);
+    const newVariant = product?.variants.find(v => v.id === e.target.value);
     setSelectedVariant(newVariant);
     navigate(
       `${origin}${pathname}?variant=${encodeURIComponent(newVariant.id)}`,
@@ -50,12 +55,15 @@ export default function ProductTemplate(props) {
 
   return (
     <Layout>
+      <SEO
+        description={props.data.shopifyProduct.description}
+        title={props.data.shopifyProduct.title}
+      />
       <Button onClick={() => navigate(-1)}>Back to products</Button>
       <Grid>
         <div>
           <h1>{props.data.shopifyProduct.title}</h1>
           <p>{props.data.shopifyProduct.description}</p>
-
           {product?.availableForSale && !!selectedVariant && (
             <>
               {product?.variants.length > 1 && (
@@ -73,10 +81,9 @@ export default function ProductTemplate(props) {
                   </select>
                 </SelectWrapper>
               )}
-
               {!!selectedVariant && (
                 <>
-                  <Price>${selectedVariant.price}</Price>
+                  <Price>£{selectedVariant.price}</Price>
                   <ProductQuantityAdder
                     available={selectedVariant.available}
                     variantId={selectedVariant.id}

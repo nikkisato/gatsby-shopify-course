@@ -1,37 +1,41 @@
 import React from 'react';
 import { CollectionTile } from '../CollectionTile';
-import { RemaingingCollections } from './styles';
+import { RemainingCollections } from './styles';
 
 export function HomepageCollectionsGrid({ collections }) {
-  const saleCollections = collections.find(
+  const saleCollection = collections?.find(
     collection => collection.title === 'SALE'
   );
-  const remaingingCollections = collections.filter(
+  const remainingCollections = collections?.filter(
     collection => collection.title !== 'SALE'
   );
 
   return (
     <div>
-      {!!saleCollections && (
+      {!!saleCollection && (
         <CollectionTile
           sale
-          title={saleCollections.title}
-          description={saleCollections.description}
-          backgroundImage={
-            saleCollections.image?.localFile.childImageSharp.fluid
-          }
+          destination={`/all-products?c=${encodeURIComponent(
+            saleCollection.shopifyId
+          )}`}
+          title={saleCollection.title}
+          description={saleCollection.description}
+          backgroundImage={saleCollection.image.localFile.childImageSharp.fluid}
         />
       )}
-      <RemaingingCollections>
-        {remaingingCollections.map(collection => (
+      <RemainingCollections>
+        {remainingCollections.map(collection => (
           <CollectionTile
+            destination={`/all-products?c=${encodeURIComponent(
+              collection.shopifyId
+            )}`}
             title={collection.title}
             description={collection.description}
-            backgroundImage={collection.image?.localFile.childImageSharp.fluid}
+            backgroundImage={collection.image.localFile.childImageSharp.fluid}
             key={collection.shopifyId}
           />
         ))}
-      </RemaingingCollections>
+      </RemainingCollections>
     </div>
   );
 }
