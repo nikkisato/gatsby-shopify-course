@@ -1,4 +1,3 @@
-
 {
   "name": "gatsby-shopify-course",
   "private": true,
@@ -31,7 +30,7 @@
     "react-helmet": "^6.1.0",
     "react-icons": "^3.10.0",
     "shopify-buy": "^2.11.0",
-    "shopify-verify-webhook": "^1.0.0",
+    "shopify-verify-webhook": "^1.0.1",
     "styled-components": "^5.1.1",
     "styled-reset": "^4.2.0"
   },
